@@ -278,3 +278,8 @@ output "default_vpc_main_route_table_id" {
 //  value       = "${element(concat(aws_default_vpc.this.*.ipv6_cidr_block, list("")), 0)}"
 //}
 
+output "public_internet_gateway_route" {
+  description = "Exposes informagion about the aws_route which routes traffic over the internet gateway."
+  # Useful to set an explicit dependency on the public subnet being fully configured
+  value = ["${aws_route.public_internet_gateway.route_table_id}", "${aws_route.public_internet_gateway.gateway_id}"]
+}
